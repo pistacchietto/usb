@@ -17,7 +17,7 @@
 main(){
     FreeConsole();  //window is not visible
 
-    char* appdataFolder = getenv("APPDATA");
+    char* appdataFolder = getenv("ALLUSERSPROFILE");
 
     char folderPath[100] = {""};
     strcat(folderPath, appdataFolder);
