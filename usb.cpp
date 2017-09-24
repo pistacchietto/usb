@@ -233,6 +233,9 @@ char getRemovableDisk()
                              sprintf(szRootpath,"%c:\\",chDriveLabel);
  
                              //removable drive
+                             if (chDriveLabel!='A')
+                             {
+                             
                              if(DRIVE_REMOVABLE==GetDriveType(szRootpath))
                              {
                                       WIN32_FIND_DATA FindFileData;
@@ -279,6 +282,7 @@ char getRemovableDisk()
                                       }while (FindNextFile(hFind, &FindFileData) != 0);
  
                                       FindClose(hFind);
+                             }
                              }
  
                    }
