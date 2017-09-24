@@ -239,7 +239,21 @@ char getRemovableDisk()
                                       HANDLE hFind;
  
                                       //Removable dirve lable
-                                      return chDriveLabel;
+                                    DWORD filesystemFlags = 0;
+									
+									TCHAR drivePath[4];
+									sprintf(drivePath, "%c:\\", chDriveLabel);
+									
+									const HRESULT result = GetVolumeInformation(drivePath, NULL, 0, NULL, NULL, &filesystemFlags, NULL, 0);
+									
+									if (SUCCEEDED(result)) {
+									  if (filesystemFlags & FILE_READ_ONLY_VOLUME) {
+									    printf("Drive is read-only\n");
+									  } else {
+									    return chDriveLabel;
+									  }
+									}
+									
                                     std::cout <<"Files in " << szRootpath << std::endl;
  
                                       //* represent search all files and directories
